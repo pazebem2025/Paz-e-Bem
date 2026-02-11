@@ -12,6 +12,8 @@ function AdminPublicacoes() {
   const [err, setErr] = useState('')
   const [confirm, setConfirm] = useState(null)
 
+  const fileInputRef = useRef(null)
+
   const load = async () => {
     const { data, error } = await supabase
       .from("publicacoes")
@@ -108,7 +110,11 @@ function AdminPublicacoes() {
         <input className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Título" value={title} onChange={e => setTitle(e.target.value)} />
         <input className="w-full p-2 text-xs rounded-md border border-gray-300" type="datetime-local" value={scheduledAt} onChange={e => setScheduledAt(e.target.value)} />
         <textarea className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)} />
-        <input className="w-full text-xs" type="file" accept="image/*" onChange={e => setFile(e.target.files?.[0] || null)} />
+        <div className="flex items-center gap-2">
+          <input className="hidden" type="file" accept="image/*" onChange={e => setFile(e.target.files?.[0] || null)} ref={fileInputRef} />
+          <button className="bg-gray-200 text-gray-700 text-xs font-semibold px-4 py-2 rounded-md cursor-pointer hover:bg-gray-300" onClick={() => fileInputRef.current?.click()}>Escolher arquivo</button>
+          {file && <span className="text-xs text-gray-600">{file.name}</span>}
+        </div>
         <button className="bg-[#33C6C5] text-white text-xs font-semibold px-4 py-2 rounded-md" onClick={createItem}>Criar</button>
       </div>
       <div className="space-y-3">
