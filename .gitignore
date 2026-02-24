@@ -7,7 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-*.json
 !package.json
 paz-e-bem-firebase-adminsdk-fbsvc-ca6d419ced.json
 

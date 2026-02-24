@@ -2,7 +2,7 @@ function Footer() {
   return (
     <div className="py-6 text-center">
       <a 
-        href="https://go.bzsoftware.com.br/?src=app-matriz" 
+        href="https://wa.me/5584988572214" 
         target="_blank" 
         rel="noopener noreferrer"
         className="text-[10px] text-blue-400 hover:text-blue-500 transition-colors"
