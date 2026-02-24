@@ -16,6 +16,7 @@ import Admin from "./pages/Admin.jsx";
 import AdminEditPublicacao from "./pages/AdminEditPublicacao.jsx";
 import AdminEditInformativo from "./pages/AdminEditInformativo.jsx";
 import PublicacaoDetalhes from "./pages/PublicacaoDetalhes.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               element={<AdminEditInformativo />}
             />
           </Routes>
+          <Footer />
         </main>
         <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-20 bg-white border-t border-gray-200 rounded-t-3xl shadow-lg z-50 flex justify-around items-center">
           <NavLink

@@ -1,0 +1,23 @@
+{
+  "name": "Paz e Bem",
+  "short_name": "Paz e Bem",
+  "description": "Aplicativo da Igreja Matriz de Cerro Corá",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

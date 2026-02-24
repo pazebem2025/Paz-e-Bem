@@ -12,7 +12,7 @@ function InformativoDevs() {
             </h1>
           </div>
 
-          <ul className="mt-4 space-y-2 text-slate-600 text-sm leading-relaxed">
+          <ul className="mt-4 space-y-2 text-slate-600 text-sm leading-relaxed wrap-break-word">
             <li><a href="https://github.com/Sid-si" target="_blank" rel="noopener noreferrer">Anderson Sidcley</a></li>
             <li><a href="https://github.com/edubzs" target="_blank" rel="noopener noreferrer">Eduardo Bezerra</a></li>           
             <li><a href="https://github.com/Juanzinho5G" target="_blank" rel="noopener noreferrer">Juan Medeiros</a></li>           

@@ -54,7 +54,7 @@ function Informativos() {
       {items.map(i => (
         <div key={i.id} className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm text-xs text-gray-700 space-y-1">
           <div className="text-gray-800 font-semibold">{i.title}</div>
-          <div className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: linkify(i.content) }} />
+          <div className="whitespace-pre-line wrap-break-word" dangerouslySetInnerHTML={{ __html: linkify(i.content) }} />
           <div className="text-gray-500">{fmtDate(i.created_at)}</div>
         </div>
       ))}

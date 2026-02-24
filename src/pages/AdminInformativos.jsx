@@ -23,8 +23,22 @@ function AdminInformativos() {
   useEffect(() => {
     const check = async () => {
       const { data } = await supabase.auth.getSession()
-      const ok = !!data.session || localStorage.getItem('adminLoggedIn') === 'true'
-      if (!ok) { navigate('/login'); return }
+      
+      const sessionValid = !!data.session
+      
+      const localLoggedIn = localStorage.getItem('adminLoggedIn') === 'true'
+      const loginTimestamp = localStorage.getItem('loginTimestamp')
+      const now = Date.now()
+      const oneDay = 24 * 60 * 60 * 1000 // 24 hours
+      
+      const localValid = localLoggedIn && loginTimestamp && (now - parseInt(loginTimestamp) < oneDay)
+
+      if (!sessionValid && !localValid) {
+        localStorage.removeItem('adminLoggedIn')
+        localStorage.removeItem('loginTimestamp')
+        navigate('/login')
+        return
+      }
     }
     check()
     let active = true
