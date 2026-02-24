@@ -14,7 +14,7 @@ function InformativoInovaTec() {
             </div>
           </div>
 
-          <div className="mt-4 text-slate-600 leading-relaxed text-sm">
+          <div className="mt-4 text-slate-600 leading-relaxed text-sm wrap-break-word">
             <p>
               A Inovatech Seridó é uma comunidade de inovação e startups que atua fortalecendo o ecossistema tecnológico do Seridó, com presença ativa em Cerro Corá. Seu propósito é conectar jovens, empreendedores e profissionais da região, estimulando a criação de soluções inovadoras, o empreendedorismo local e o desenvolvimento de projetos que valorizem o território. A comunidade participa de eventos, iniciativas e discussões sobre tecnologia e desenvolvimento regional, atuando como ponte entre ideias, oportunidades e parcerias que impulsionam a inovação no interior do Rio Grande do Norte. 
             </p>

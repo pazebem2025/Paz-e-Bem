@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 
@@ -7,6 +7,22 @@ function Login() {
   const [password, setPassword] = useState('')
   const [err, setErr] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const checkLogin = () => {
+      const localLoggedIn = localStorage.getItem('adminLoggedIn') === 'true'
+      const loginTimestamp = localStorage.getItem('loginTimestamp')
+      const now = Date.now()
+      const oneDay = 24 * 60 * 60 * 1000 // 24 hours
+      
+      const localValid = localLoggedIn && loginTimestamp && (now - parseInt(loginTimestamp) < oneDay)
+
+      if (localValid) {
+        navigate('/admin')
+      }
+    }
+    checkLogin()
+  }, [navigate])
 
   const FIXED_USER = 'matrizcc'
   const FIXED_PASS = 'admin123'
@@ -29,10 +45,13 @@ function Login() {
           return
         }
         localStorage.setItem('adminLoggedIn', 'true')
+        localStorage.setItem('loginTimestamp', Date.now().toString())
         navigate('/admin')
         return
       }
       if (data?.session) {
+        localStorage.setItem('adminLoggedIn', 'true')
+        localStorage.setItem('loginTimestamp', Date.now().toString())
         navigate('/admin')
         return
       }

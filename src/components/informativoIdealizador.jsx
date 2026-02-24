@@ -14,7 +14,7 @@ function InformativoIdealizador() {
             </div>
           </div>
 
-          <div className="mt-4 space-y-4 text-slate-600 leading-relaxed text-sm">
+          <div className="mt-4 space-y-4 text-slate-600 leading-relaxed text-sm wrap-break-word">
             <p>
               O Paz e Bem foi idealizado por Juan Gustavo dos Santos de
               Medeiros, a partir de experiências em diversas viagens

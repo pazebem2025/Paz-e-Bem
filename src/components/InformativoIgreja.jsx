@@ -17,7 +17,7 @@ function InformativoIgreja() {
             </div>
           </div>
 
-          <div className="mt-4 space-y-4 text-slate-600 leading-relaxed text-sm">
+          <div className="mt-4 space-y-4 text-slate-600 leading-relaxed text-sm wrap-break-word">
             <p>
               Localizada no ponto mais alto da cidade, a Igreja Matriz de São
               João Batista não é apenas um templo religioso, mas o principal

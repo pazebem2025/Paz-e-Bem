@@ -302,7 +302,7 @@ function Publicacoes() {
                       fmtRange(i.scheduled_at, i.scheduled_end_at)
                     }
                     date={fmtDate(i.scheduled_at)}
-                    image={i.image_url || "/logo.png"}
+                    image={i.image_url || "/banner-padrao.webp"}
                     detailsTo={`/publicacoes/${i.id}`}
                   />
                 ))

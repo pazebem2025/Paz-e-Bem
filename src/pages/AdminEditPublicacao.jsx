@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import { publicationTitles } from "../constants/publicationTitles";
+import Toast from "../components/Toast";
 
 function AdminEditPublicacao() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const [item, setItem] = useState(null);
   const [title, setTitle] = useState("");
@@ -12,15 +15,37 @@ function AdminEditPublicacao() {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
   const [err, setErr] = useState("");
+  const [toast, setToast] = useState({ visible: false, message: '', type: '' });
   const fileInputRef = useRef(null);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ visible: true, message, type });
+  };
+  
+  useEffect(() => {
+    if (location.state?.message) {
+      showToast(location.state.message, location.state.type || 'success');
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   useEffect(() => {
     const check = async () => {
       const { data } = await supabase.auth.getSession();
-      const ok =
-        !!data.session || localStorage.getItem("adminLoggedIn") === "true";
-      if (!ok) {
-        navigate("/login");
+      
+      const sessionValid = !!data.session;
+      
+      const localLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+      const loginTimestamp = localStorage.getItem('loginTimestamp');
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000; // 24 hours
+      
+      const localValid = localLoggedIn && loginTimestamp && (now - parseInt(loginTimestamp) < oneDay);
+
+      if (!sessionValid && !localValid) {
+        localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('loginTimestamp');
+        navigate('/login');
         return;
       }
     };
@@ -37,14 +62,18 @@ function AdminEditPublicacao() {
         else {
           setItem(data);
           setTitle(data.title || "");
+          const d = new Date(data.scheduled_at);
           setScheduledAt(
-            new Date(data.scheduled_at).toISOString().slice(0, 16),
+            new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
           );
-          setScheduledEndAt(
-            data.scheduled_end_at
-              ? new Date(data.scheduled_end_at).toISOString().slice(0, 16)
-              : "",
-          );
+          if (data.scheduled_end_at) {
+            const end = new Date(data.scheduled_end_at);
+            setScheduledEndAt(
+              new Date(end.getTime() - end.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+            );
+          } else {
+            setScheduledEndAt("");
+          }
           setDescription(data.description || "");
         }
       });
@@ -85,7 +114,7 @@ function AdminEditPublicacao() {
       setErr(error.message);
       return;
     }
-    navigate("/admin/publicacoes");
+    navigate("/admin/publicacoes", { state: { message: "Publicação atualizada com sucesso!", type: "success" } });
   };
 
   return (
@@ -115,7 +144,13 @@ function AdminEditPublicacao() {
               placeholder="Título da publicação"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              list="title-suggestions-edit"
             />
+            <datalist id="title-suggestions-edit">
+              {publicationTitles.map((t) => (
+                <option key={t} value={t} />
+              ))}
+            </datalist>
           </div>
           <div className="space-y-1">
             <div className="text-xs font-semibold text-gray-700">
@@ -180,6 +215,13 @@ function AdminEditPublicacao() {
             </button>
           </div>
         </div>
+      )}
+      {toast.visible && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, visible: false })}
+        />
       )}
     </div>
   );
